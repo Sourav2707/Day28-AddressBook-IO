@@ -13,12 +13,13 @@ import java.util.stream.Collectors;
 
 public class Main extends AddressBook{
     static int option;
-    public static void menu() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
+    CSVOperation csvOperation = new CSVOperation();
+    public void menu() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         Main addressBook = new Main();
         Scanner sc = new Scanner(System.in);
         System.out.println("Menu: (Enter the respective number)\n1. Add contact 2. Edit contact 3. Delete 4. Display 5. Search by City or State " +
                 "6. Count of person in city or state\n7. Dictionary of person by city and state 8. Sort by 9. Write the contacts in a file" +
-                "10. Read the contacts from the file 11. Write into CSV file 12. Exit");
+                "10. Read the contacts from the file 11. Write into CSV file 12. Read from CSV 13. Exit");
         option = sc.nextInt();
         switch(option) {
             case 1:
@@ -131,11 +132,14 @@ public class Main extends AddressBook{
                 menu();
                 break;
             case 11:
-                CSVOperation csvOperation = new CSVOperation();
                 csvOperation.csvWriter(contacts);
                 menu();
                 break;
             case 12:
+                csvOperation.csvReader();
+                menu();
+                break;
+            case 13:
                 System.exit(0);
             default:
                 System.out.println("Invalid option");
@@ -143,6 +147,7 @@ public class Main extends AddressBook{
     }
     public static void main(String[] args) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         System.out.println("Welcome to day 9 address book program");
-        Main.menu();
+        Main main = new Main();
+        main.menu();
     }
 }

@@ -8,13 +8,15 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 public class CSVOperation {
+    File file2 = new File("C:\\Users\\Sourav Prasanna\\IdeaProjects\\Day28-AddressBook-IO\\src\\main\\java\\com\\day9_address_book\\AddressBook.csv");
     public void csvWriter(List<Contacts> contacts) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
-        File file2 = new File("C:\\Users\\Sourav Prasanna\\IdeaProjects\\Day28-AddressBook-IO\\src\\main\\java\\com\\day9_address_book\\AddressBook.csv");
         FileWriter fileWriter = new FileWriter(file2);
         // Create Mapping Strategy to arrange the
         // column name in order
@@ -29,5 +31,13 @@ public class CSVOperation {
         // Write list to StatefulBeanToCsv object
         writer.write(contacts);
         fileWriter.close();
+    }
+    public void csvReader() throws FileNotFoundException {
+        Scanner scanner = new Scanner(file2);
+        scanner.useDelimiter(",");
+        while ((scanner.hasNext())) {
+            System.out.println(scanner.next());
+        }
+        scanner.close();
     }
 }
