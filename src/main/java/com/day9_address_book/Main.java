@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class Main extends AddressBook{
     static int option;
     CSVOperation csvOperation = new CSVOperation();
+    JsonOperations jsonOperations = new JsonOperations();
     public void menu() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         Main addressBook = new Main();
         Scanner sc = new Scanner(System.in);
@@ -140,6 +141,14 @@ public class Main extends AddressBook{
                 menu();
                 break;
             case 13:
+                jsonOperations.writeOnJson(contacts);
+                menu();
+                break;
+            case 14:
+                jsonOperations.readFromJso();
+                menu();
+                break;
+            case 15:
                 System.exit(0);
             default:
                 System.out.println("Invalid option");
