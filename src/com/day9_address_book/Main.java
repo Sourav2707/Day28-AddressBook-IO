@@ -1,13 +1,16 @@
 package com.day9_address_book;
 
+import java.io.*;
 import java.util.Scanner;
 
 public class Main extends AddressBook{
     static int option;
-    public static void menu() {
+    public static void menu() throws IOException {
         Main addressBook = new Main();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Menu: (Enter the respective number)\n1. Add contact 2. Edit contact 3. Delete 4. Display 5. Search by City or State 6. Count of person in city or state 7. Dictionary of person by city and state 8. Sort by 9. Exit");
+        System.out.println("Menu: (Enter the respective number)\n1. Add contact 2. Edit contact 3. Delete 4. Display 5. Search by City or State " +
+                "6. Count of person in city or state\n7. Dictionary of person by city and state 8. Sort by 9. Write the contacts in a file" +
+                "10. Read the contacts from the file 11. Exit");
         option = sc.nextInt();
         switch(option) {
             case 1:
@@ -103,12 +106,29 @@ public class Main extends AddressBook{
                     System.out.println("Invalid option");
                 break;
             case 9:
+                try (FileWriter fileWriter = new FileWriter("C:\\Users\\Sourav Prasanna\\IdeaProjects\\Day28-AddressBook-IO\\src\\com\\day9_address_book\\AddressBook.txt")) {
+                    for(Contacts values: contacts ) {
+                        fileWriter.write(values.toString());
+                    }
+                }
+                menu();
+                break;
+            case 10:
+                File file = new File("C:\\Users\\Sourav Prasanna\\IdeaProjects\\Day28-AddressBook-IO\\src\\com\\day9_address_book\\AddressBook.txt");
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                String values;
+                while ((values = bufferedReader.readLine()) != null) {
+                    System.out.println(values);
+                }
+                menu();
+                break;
+            case 11:
                 System.exit(0);
             default:
                 System.out.println("Invalid option");
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Welcome to day 9 address book program");
         Main.menu();
     }
